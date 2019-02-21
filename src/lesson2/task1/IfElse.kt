@@ -137,17 +137,10 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((abs(a - b) > c) && (abs(a + b) < c)) return -1
-    else {
-        val p = (a + b + c) / 2.0
-        val angleA = (2.0 * atan(sqrt((p - a) * (p - b) / (p * (p - c))))) * (180.0 / PI)
-        val angleB = (2.0 * atan(sqrt((p - b) * (p - c) / (p * (p - a))))) * (180.0 / PI)
-        val angleC = (2.0 * atan(sqrt((p - c) * (p - a) / (p * (p - b))))) * (180.0 / PI)
-
-        if ((angleA < 90.0) && (angleB < 90.0) && (angleC < 90.0)) return 0
-        else if ((angleA == 90.0) || (angleB == 90.0) || (angleC == 90.0)) return 1
-        else return 2
-    }
+    if ((a > b + c) || (a < b - c) || (b > a + c) || (b < a - c) || (c > a + b) || (c < a - b)) return -1
+    else if ((a == b) || (a == c) || (b == c)) return 0
+    else if (((sqr(a) == sqr(b) + sqr(c)) || (sqr(b) == sqr(a) + sqr(c)) || (sqr(c) == sqr(b) + sqr(a)))) return 1
+    else return 2
 }
 
 /**
